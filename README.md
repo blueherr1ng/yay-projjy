@@ -1,3 +1,9 @@
+# TASK GARDEN EXTENSION 
+A CMU TartanHacks project where you and your friends grow gardens based off of task metrics! 
+
+
+
+# TEMPLATE EXTENSION USED FROM TABBYCATS LADY (CITE BETTER IN FINAL)
 # New-Tab Extension Example
 A basic new tab extension for Chrome to get you jump-started and building your own extension!
 
