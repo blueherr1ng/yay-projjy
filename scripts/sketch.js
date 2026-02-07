@@ -60,15 +60,28 @@ function turtle(x,y,alpha) {
 }
 
 function setup() { 
+  let canvas = createCanvas(500, 500); 
+  canvas.parent('garden-container');
   console.log(plantLibrary);
-  createCanvas(1000,600);
-  background(20);
+
+  backgroundColor = color('#4c3228')
+  background(backgroundColor);
+}
+
+function drawGardenBed() {
+  noStroke();
+  for (let i = 0; i < 40; i++) {
+    fill(139, 115, 85, 150); // Muted pebble brown
+    let x = random(width);
+    let y = random(height);
+    ellipse(x, y, random(5, 15), random(3, 8)); // Random pebble sizes
+  }
 }
 
 function getAlpha(y){
   if(y<0){return 255;}
   else{return (255*y)/1200};
-}
+} 
 
 function plantOnce(x,y, plantype) {
   curr_rules = plantype.rules;

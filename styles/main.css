@@ -1,7 +1,25 @@
+/* 1. Register the font */
+@font-face {
+    font-family: 'IBM Plex Sans';
+    /* Go up to 'project', then into 'public', then 'fonts' */
+    src: url('../public/fonts/IBMPlexSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('../public/fonts/IBMPlexSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* 2. Apply it to your project */
+
 /* ASCII/Console Theme Variables */
 :root {
   --console-bg: #0a0e14;
-  --console-fg: #00ff00;
+  --console-fg: white;
   --console-border: #00aa00;
   --console-accent: #00ffaa;
   --console-dim: #008800;
@@ -19,10 +37,61 @@
 }
 
 body {
-  font-family: 'Courier New', 'Consolas', monospace;
-  background: var(--console-bg);
+  font-family: 'IBM Plex Sans';
+  background-color: #EADDCA;
   color: var(--console-fg);
   overflow: hidden;
+}
+
+/*Login page styling*/
+.title-header {
+  background-color: #DAA06D;
+  color: white;
+  font-family: 'IBM Plex Sans', Sansspace;
+  font-weight: bold;
+}
+
+.brown-background {
+  background-color: #EADDCA;
+}
+
+input[type="text"], 
+input[type="password"] {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #DAA06D;
+  border-radius: 4px;
+}
+
+canvas {
+    display: block;       /* Changes it from 'inline' to 'block' */
+    margin-left: auto;    /* Pushes from the left */
+    margin-right: auto;   /* Pushes from the right */
+    
+    /* Optional: adds a little space between your form and the garden */
+    margin-top: 20px;     
+    
+    /* Optional: gives it a subtle border like a real garden plot */
+    border: 5px solid #8B7355; 
+    border-radius: 10px;
+}
+
+.main-container {
+    display: flex;          /* This turns on the side-by-side mode */
+    justify-content: center; /* Centers the whole pair horizontally */
+    align-items: flex-start; /* Keeps them aligned at the top */
+    gap: 40px;              /* Adds a nice gap between the plot and the list */
+    padding: 20px;
+    flex-wrap: wrap;        /* If the screen gets too small, they'll stack nicely */
+}
+
+.todo-container {
+    background: #fdf5e6;    /* A light parchment color */
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #DAA06D;
+    width: 300px;           /* Fixed width for the list */
+    text-align: left;       /* Keeps the list text looking tidy */
 }
 
 /* Main Container */
@@ -92,18 +161,10 @@ body {
   /*animation: scanline 3s linear infinite;*/
 }
 
-@keyframes scanline {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(500px);
-  }
-}
-
 .panel-header {
   margin-bottom: 1rem;
 }
+
 
 .panel-header pre {
   color: var(--console-accent);
@@ -111,6 +172,7 @@ body {
   line-height: 1.2;
   text-align: center;
 }
+
 
 /* Garden Styles */
 .garden-panel {
@@ -254,7 +316,7 @@ body {
   background: transparent;
   border: none;
   color: var(--console-fg);
-  font-family: 'Courier New', monospace;
+  font-family: 'Courier New', Sansspace;
   font-size: 0.9rem;
   outline: none;
   padding: 0.5rem;
@@ -263,6 +325,24 @@ body {
 .todo-input::placeholder {
   color: var(--console-dim);
 }
+
+button {
+  background-color: #DAA06D; /* Matching your title color */
+  color: white;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;       /* Gives it those soft corners */
+  cursor: pointer;          /* Makes the mouse turn into a hand */
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth color change */
+}
+
+/* This makes the button darken slightly when you hover over it */
+button:hover {
+  background-color: #C08A5A;
+}
+
 
 .add-button,
 .delete-button,
@@ -273,7 +353,7 @@ body {
   color: var(--console-accent);
   cursor: pointer;
   padding: 0.25rem 0.5rem;
-  font-family: 'Courier New', monospace;
+  font-family: 'Courier New', Sansspace;
   font-size: 0.75rem;
   transition: all 0.2s;
   border-radius: 4px;

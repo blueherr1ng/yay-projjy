@@ -1,19 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-	<title>EXTENSION NAME</title>
-	<link rel="stylesheet" type="text/css" href="styles/index.css">
-    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <title>plantastic</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
     <script type="text/javascript" src="scripts/index.js"></script>
-</head>
-<body>
-    logged in :3c
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h1>Plantastic</h1>
+      <h3>Study alone, grow together</h3>
+      <div class="welcome-container">
+        <h3 id="welcome-message">Loading...</h3>
+      </div>
+      <a href="login.html">
+        <button type="button">login button</button>
+      </a>
+    
+      <a href="main.html">
+        <button type="button">home button</button>
+      </a>
 
-    <br>
-    <a href="http://localhost:3000">
-  	    <button>connect !</button>
-    </a>
-    </br>
-</body>
+      <div class="main-container">
+    <div id="garden-container"></div>
+
+    <div class="todo-container">
+        <h3>Garden Tasks</h3>
+        <ul id="todo-list">
+            <li><input type="checkbox"> Water the ferns</li>
+            <li><input type="checkbox"> Check soil pH</li>
+        </ul>
+        <input type="text" id="todo-input" placeholder="New task...">
+        <button onclick="addTask()">Add</button>
+    </div>
+</div>
+    </div>
+    
+    <script type="text/javascript" src="scripts/p5.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="scripts/plantastic.js"></script>
+    <script type="text/javascript" src="scripts/sketch.js"></script>
+  </body>
 </html>
