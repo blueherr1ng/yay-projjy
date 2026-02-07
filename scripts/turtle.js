@@ -1,6 +1,6 @@
 const Turtle = {
   render: function(sentence, inangle,alpha) {
-    const len = 12;          
+    const len = 8;          
     const angle = radians(inangle);
     for (let i = 0; i < sentence.length; i++) {
       let current = sentence.charAt(i);

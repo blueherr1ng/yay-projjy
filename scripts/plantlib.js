@@ -11,21 +11,36 @@ var plantLibrary = [
     ]
   },
   {
-    name: "ai plant ew",
+    name: "abop-a",
     axiom: "F",
-    angle: 25,
+    angle: 25.7,
     rules: [
-      { a: "F", b: "F[+F]F[-F]", weight: 0.4 },
-      { a: "F", b: "FF", weight: 0.6 }
+        { a: "F", b: "F[+F]F[-F]F", weight: 1 },
     ]
   },
   {
-    name: "ai flower ew",
+    name: "abop-b",
     axiom: "F",
-    angle: 25,
+    angle: 20,
     rules: [
-      { a: "F", b: "FF+[+FC]-[-FC]", weight: 0.5 },
-      { a: "F", b: "F[+F]F", weight: 0.5 }
+        { a: "F", b: "F[+FC]F[-F][FC]", weight: 1 },
     ]
-  }
+  },
+  {
+    name: "abop-c",
+    axiom: "F",
+    angle: 22.5,
+    rules: [
+        { a: "F", b: "FF-[-F+F+F]+[+F-F-F]", weight: 1 },
+    ]
+  },
+  {
+    name: "abop-d",
+    axiom: "X",
+    angle: 20,
+    rules: [
+        { a: "X", b: "F[+X]F[-X]+X", weight: 1 },
+        { a: "F", b: "FF", weight: 1 },
+    ]
+  },
 ];
