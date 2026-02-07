@@ -23,6 +23,7 @@
   --console-border: #00aa00;
   --console-accent: #00ffaa;
   --console-dim: #008800;
+  --console-button: #8ca88c;
   --console-error: #ff3333;
   --panel-bg: #0d1117;
   --panel-border: #30363d;
@@ -38,21 +39,17 @@
 
 body {
   font-family: 'IBM Plex Sans';
-  background-color: #EADDCA;
+  background-color: black;
   color: var(--console-fg);
   overflow: hidden;
 }
 
 /*Login page styling*/
 .title-header {
-  background-color: #DAA06D;
+  background-color: var(--console-bg);
   color: white;
   font-family: 'IBM Plex Sans', Sansspace;
   font-weight: bold;
-}
-
-.brown-background {
-  background-color: #EADDCA;
 }
 
 input[type="text"], 
@@ -72,7 +69,7 @@ canvas {
     margin-top: 20px;     
     
     /* Optional: gives it a subtle border like a real garden plot */
-    border: 5px solid #8B7355; 
+    border: 5px solid var(--console-accent); 
     border-radius: 10px;
 }
 
@@ -86,10 +83,10 @@ canvas {
 }
 
 .todo-container {
-    background: #fdf5e6;    /* A light parchment color */
+    background: var(--console-bg);    /* A light parchment color */
     padding: 20px;
     border-radius: 10px;
-    border: 2px solid #DAA06D;
+    border: 2px solid var(--console-accent);
     width: 300px;           /* Fixed width for the list */
     text-align: left;       /* Keeps the list text looking tidy */
 }
@@ -327,7 +324,7 @@ canvas {
 }
 
 button {
-  background-color: #DAA06D; /* Matching your title color */
+  background-color: var(--console-border); /* Matching your title color */
   color: white;
   padding: 10px 20px;
   margin-top: 15px;
@@ -340,7 +337,7 @@ button {
 
 /* This makes the button darken slightly when you hover over it */
 button:hover {
-  background-color: #C08A5A;
+  background-color: var(--console-button);
 }
 
 
