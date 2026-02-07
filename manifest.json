@@ -7,6 +7,6 @@
 		"16": "images/world-1.png"
 	},
   	"chrome_url_overrides" : {
-    	"newtab": "login.html"
+    	"newtab": "index.html"
   	}
 }
