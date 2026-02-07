@@ -11,7 +11,6 @@ var axiom = [
 var sentence;
 var len = 12;
 var angle;
-
 var rules = [
     { 
     a: "F", 
@@ -41,8 +40,7 @@ var rules = [
 // }
 
 
-function generate() {
-  len -= 1;
+function generate(x,y) {
   var nextSentence = "";
   for (var i = 0; i < sentence.length; i++)
   {
@@ -64,14 +62,13 @@ function generate() {
     }
   }
   sentence = nextSentence;
-  createP(sentence);
-  turtle();
+//   createP(sentence);
+  turtle(x,y);
 }
 
-function turtle() {
-  background(20);
+function turtle(x,y) {
   resetMatrix();
-  translate(width/2,height);
+  translate(x, y);
   stroke(255, 255, 255, 127);
   
   for(var i =0; i<sentence.length; i++)
@@ -103,12 +100,14 @@ function turtle() {
 function setup() { 
   createCanvas(1000,600);
   background(20);
-  var randchoice = floor(random(4))
+}
+
+function mouseClicked() {
+  var randchoice = floor(random(4));
   sentence = axiom[randchoice];
-  angle = (PI/6-random(0.2));
-  turtle();
-  for(var i = 0; i < 3 ; i ++)
-  {
-    generate();
+  angle = (PI/6 - random(0.2));
+  for(var i = 0; i < 3; i++) {
+    generate(mouseX,mouseY);
   }
+  turtle(mouseX,mouseY); 
 }
