@@ -4,7 +4,7 @@ const gardata = {
     const plants = this.getPlants();
     const types = plantLibrary.map(p=>p.name);
     const randtype = types[floor(random()*types.length)];
-    let depth = map(y, 0, height, 0.4, 1.0);
+    let depth = map(y, 0, height, 0.2, 1.0);
     let variance = random(-0.05, 0.05); 
     let finscale = constrain(depth + variance, 0.2, 1.5);
     const newp = {

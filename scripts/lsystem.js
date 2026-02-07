@@ -7,7 +7,7 @@ const LSystem = {
     // Lock the chaos so it grows the same way every time
     randomSeed(seed);
     let cursentence = data.axiom; 
-    const loopnum = data.iterations || 4;
+    const loopnum = floor(random(2,5));
     for (let i = 0; i < loopnum; i++) {
       cursentence = this.applyRules(cursentence, data.rules);
     }
