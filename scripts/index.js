@@ -1,24 +1,32 @@
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Password Toggle Logic
+    const passwordInput = document.getElementById('password');
+    const toggleCheckbox = document.getElementById('togglePassword');
 
-    // MAKE THE WORLD SPIN
-    var worldElement = $('.world')[0],
-        worldImages = [
-            'images/world-1.png',
-            'images/world-2.png',
-            'images/world-3.png'
-        ],
-        currentImageIndex = 0;
-
-    setInterval(spinWorld, 1000);
-
-    function spinWorld() {
-        currentImageIndex ++;
-
-        if (currentImageIndex === worldImages.length) {
-            currentImageIndex = 0;
-        }
-
-        worldElement.setAttribute('src', worldImages[currentImageIndex]);
+    if (passwordInput && toggleCheckbox) {
+        toggleCheckbox.addEventListener('change', function() {
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
     }
 
+    // 2. Save Username on Submit
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', () => {
+            const user = document.getElementById('username').value;
+            localStorage.setItem('plantasticUser', user);
+        });
+    }
+
+    // 3. Date & Welcome Message Logic
+    const welcomeHeading = document.getElementById('welcome-message');
+    const savedUser = localStorage.getItem('plantasticUser');
+
+    if (savedUser && welcomeHeading) {
+        const now = new Date();
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        const dateString = now.toLocaleDateString('en-US', options);
+
+        welcomeHeading.innerText = `Hey, ${savedUser}! Today is ${dateString}.`;
+    }
 });
