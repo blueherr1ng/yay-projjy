@@ -40,7 +40,7 @@ var rules = [
 // }
 
 
-function generate(x,y) {
+function generate() {
   var nextSentence = "";
   for (var i = 0; i < sentence.length; i++)
   {
@@ -63,13 +63,12 @@ function generate(x,y) {
   }
   sentence = nextSentence;
 //   createP(sentence);
-  turtle(x,y);
 }
 
-function turtle(x,y) {
+function turtle(x,y,alpha) {
   resetMatrix();
   translate(x, y);
-  stroke(255, 255, 255, 127);
+  stroke(255, 255, 255, alpha);
   
   for(var i =0; i<sentence.length; i++)
   {
@@ -91,7 +90,7 @@ function turtle(x,y) {
       pop();
     }
     else if (cur == 'C') {
-      fill(255,255,255,100);
+      fill(255,255,255,alpha);
       ellipse(0,-len+(len/2),len/2,len/3);
     }
   }
@@ -102,12 +101,31 @@ function setup() {
   background(20);
 }
 
-function mouseClicked() {
+function getAlpha(y){
+  if(y<0){return 255;}
+  else{return (255*y)/1200};
+}
+
+function plantOnce(x,y) {
   var randchoice = floor(random(4));
   sentence = axiom[randchoice];
   angle = (PI/6 - random(0.2));
   for(var i = 0; i < 3; i++) {
-    generate(mouseX,mouseY);
+    generate();
   }
-  turtle(mouseX,mouseY); 
+  turtle(x,y,getAlpha(y)); 
+}
+
+function plantAtRandom(numplant, w, h, pID)
+{
+  for (var i = 0; i < numplant; i ++){
+    var xPlausible = random(w)+100;
+    var yPlausible = random(h);
+    plantOnce(xPlausible,yPlausible);
+  }
+}
+
+function mouseClicked()
+{
+  plantAtRandom(10,800,800,"a");
 }
