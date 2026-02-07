@@ -1,215 +1,137 @@
-// todos.js - Handle todo list rendering and interaction
+// scripts/todos.js
 
 const TodoList = {
-    container: null,
-    input: null,
-    addBtn: null,
-    emptyState: null,
-    statsContainer: null,
-    statsText: null,
-    header: null,
-    
-    // Initialize todo list
     init: function() {
-        this.container = document.getElementById('todo-items');
+        // 1. Get Elements
         this.input = document.getElementById('todo-input');
+        this.container = document.getElementById('todo-items');
         this.addBtn = document.getElementById('add-todo-btn');
-        this.emptyState = document.getElementById('empty-todos');
-        this.statsContainer = document.getElementById('todo-stats');
-        this.statsText = document.getElementById('stats-text');
-        this.header = document.getElementById('todo-header');
+        this.clearGardenBtn = document.getElementById('dev-clear-btn'); // New Dev Button
+
+        // 2. Attach Event Listeners
         
-        // Event listeners
-        this.addBtn.addEventListener('click', () => this.handleAddTodo());
-        this.input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.handleAddTodo();
-        });
+        // Button Click
+        if (this.addBtn) {
+            this.addBtn.addEventListener('click', () => this.addTask());
+        }
+        
+        // Enter Key (Fixed)
+        if (this.input) {
+            this.input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    this.addTask();
+                }
+            });
+        }
+
+        // Dev Button Listener
+        if (this.clearGardenBtn) {
+            this.clearGardenBtn.addEventListener('click', () => {
+                if(confirm("NUKE THE GARDEN? (This cannot be undone)")) {
+                    gardata.clear();
+                    redraw();
+                }
+            });
+        }
+
+        // 3. Initial Render
+        this.render();
     },
-    
-    // Handle adding a new todo
-    handleAddTodo: function() {
+
+    addTask: function() {
         const text = this.input.value.trim();
         if (!text) return;
-        
-        const todo = {
-            id: Date.now().toString(),
+
+        const task = {
+            id: Date.now(),
             text: text,
-            completed: false
+            done: false
         };
-        
-        Storage.addTodo(todo);
+
+        const todos = this.getTodos();
+        todos.push(task);
+        this.saveTodos(todos);
+
         this.input.value = '';
         this.render();
     },
-    
-    // Handle toggling todo completion
-    handleToggle: function(id) {
-        const todos = Storage.getTodos();
-        const todo = todos.find(t => t.id === id);
+
+    toggleTask: function(id) {
+        const todos = this.getTodos();
+        const task = todos.find(t => t.id === id);
         
-        if (!todo) return;
-        
-        if (!todo.completed) {
-            // Completing a todo - grow a flower!
-            const flowerType = Garden.getRandomFlowerType();
-            const position = Garden.getRandomPosition();
+        if (task) {
+            task.done = !task.done;
             
-            Storage.updateTodo(id, {
-                completed: true,
-                flowerType: flowerType,
-                position: position
-            });
-        } else {
-            // Uncompleting - remove flower data
-            Storage.updateTodo(id, {
-                completed: false,
-                flowerType: undefined,
-                position: undefined
-            });
-        }
-        
-        this.render();
-    },
-    
-    // Handle deleting a todo
-    handleDelete: function(id) {
-        Storage.deleteTodo(id);
-        this.render();
-    },
-    
-    // Handle clearing all completed todos
-    handleClearCompleted: function() {
-        if (confirm('Clear all completed tasks and their flowers?')) {
-            Storage.clearCompleted();
+            // --- GARDEN TRIGGER (UPDATED) ---
+            if (task.done) {
+                // 1. X Position: Random spot in the left 66%
+                const safeWidth = (window.innerWidth * 0.66); 
+                const randomX = Math.random() * safeWidth;
+                
+                // 2. Y Position: DIVERSIFIED
+                // We define a "Ground Zone" (the bottom 20% of the screen)
+                const groundFloor = window.innerHeight - 20; // Bottom edge (minus padding)
+                const horizonLine = window.innerHeight * 0.80; // 80% down the screen
+                
+                // Randomly pick a Y value between the Horizon and the Floor
+                const randomY = Math.random() * (groundFloor - horizonLine) + horizonLine;
+
+                if (typeof gardata !== 'undefined') {
+                    gardata.addPlant(randomX, randomY);
+                }
+                
+                if (typeof redraw === 'function') {
+                    redraw();
+                }
+            }
+            // --------------------------------
+
+            this.saveTodos(todos);
             this.render();
         }
     },
-    
-    // Render the todo list
+
+    deleteTask: function(id) {
+        let todos = this.getTodos();
+        todos = todos.filter(t => t.id !== id);
+        this.saveTodos(todos);
+        this.render();
+    },
+
+    getTodos: function() {
+        const data = localStorage.getItem('simple_todos');
+        return data ? JSON.parse(data) : [];
+    },
+
+    saveTodos: function(todos) {
+        localStorage.setItem('simple_todos', JSON.stringify(todos));
+    },
+
     render: function() {
-        const todos = Storage.getTodos();
-        const activeTodos = todos.filter(t => !t.completed);
-        const completedTodos = todos.filter(t => t.completed);
-        
-        // Clear container
+        const todos = this.getTodos();
         this.container.innerHTML = '';
-        
-        // Show/hide empty state
-        if (todos.length === 0) {
-            this.emptyState.style.display = 'flex';
-            this.statsContainer.style.display = 'none';
-        } else {
-            this.emptyState.style.display = 'none';
-            this.statsContainer.style.display = 'block';
+
+        todos.forEach(task => {
+            const item = document.createElement('div');
+            item.className = 'todo-item';
             
-            // Render active todos
-            if (activeTodos.length > 0) {
-                this.renderSection('Active Tasks', activeTodos, false);
-            }
+            const textStyle = task.done ? 'text-decoration: line-through; opacity: 0.5;' : '';
             
-            // Render completed todos
-            if (completedTodos.length > 0) {
-                this.renderSection('Completed Tasks', completedTodos, true);
-            }
-            
-            // Update stats
-            this.updateStats(todos.length, activeTodos.length, completedTodos.length);
-        }
-        
-        // Update header
-        this.updateHeader(activeTodos.length, completedTodos.length);
-        
-        // Update garden
-        Garden.renderFlowers(todos);
-    },
-    
-    // Render a section (active or completed)
-    renderSection: function(title, todos, isCompleted) {
-        const section = document.createElement('div');
-        section.className = 'todo-section' + (isCompleted ? ' completed-section' : '');
-        
-        // Section header
-        const headerDiv = document.createElement('div');
-        headerDiv.className = 'section-header';
-        
-        const titlePre = document.createElement('pre');
-        titlePre.className = 'section-title';
-        titlePre.textContent = `[ ${title.toUpperCase()} ]`;
-        headerDiv.appendChild(titlePre);
-        
-        // Clear completed button
-        if (isCompleted) {
-            const clearBtn = document.createElement('button');
-            clearBtn.className = 'clear-button';
-            clearBtn.innerHTML = '<pre>[CLEAR ALL]</pre>';
-            clearBtn.addEventListener('click', () => this.handleClearCompleted());
-            headerDiv.appendChild(clearBtn);
-        }
-        
-        section.appendChild(headerDiv);
-        
-        // Render todos
-        todos.forEach(todo => {
-            section.appendChild(this.createTodoItem(todo));
+            item.innerHTML = `
+                <button class="check-btn">[${task.done ? 'x' : ' '}]</button>
+                <span style="${textStyle}">${task.text}</span>
+                <button class="del-btn" style="margin-left: auto;">[DEL]</button>
+            `;
+
+            item.querySelector('.check-btn').onclick = () => this.toggleTask(task.id);
+            item.querySelector('.del-btn').onclick = () => this.deleteTask(task.id);
+
+            this.container.appendChild(item);
         });
-        
-        this.container.appendChild(section);
-    },
-    
-    // Create a single todo item element
-    createTodoItem: function(todo) {
-        const item = document.createElement('div');
-        item.className = 'todo-item';
-        
-        // Checkbox
-        const checkbox = document.createElement('button');
-        checkbox.className = 'todo-checkbox' + (todo.completed ? ' checked' : '');
-        checkbox.innerHTML = todo.completed ? '<pre>[✓]</pre>' : '<pre>[ ]</pre>';
-        checkbox.addEventListener('click', () => this.handleToggle(todo.id));
-        
-        // Text
-        const text = document.createElement('span');
-        text.className = 'todo-text' + (todo.completed ? ' completed' : '');
-        text.textContent = todo.text;
-        
-        // Add flower icon if completed
-        if (todo.completed && todo.flowerType) {
-            const icon = document.createElement('span');
-            icon.className = 'flower-icon';
-            icon.textContent = ' ' + Garden.getFlowerIcon(todo.flowerType);
-            text.appendChild(icon);
-        }
-        
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-button';
-        deleteBtn.innerHTML = '<pre>[X]</pre>';
-        deleteBtn.title = 'Delete task';
-        deleteBtn.addEventListener('click', () => this.handleDelete(todo.id));
-        
-        item.appendChild(checkbox);
-        item.appendChild(text);
-        item.appendChild(deleteBtn);
-        
-        return item;
-    },
-    
-    // Update stats footer
-    updateStats: function(total, active, completed) {
-        this.statsText.textContent = `
-┌────────────────────────────────────┐
-│ Total: ${total.toString().padEnd(3)} │ Active: ${active.toString().padEnd(3)} │ Done: ${completed.toString().padEnd(3)} │
-└────────────────────────────────────┘
-        `;
-    },
-    
-    // Update todo header
-    updateHeader: function(active, completed) {
-        this.header.textContent = `
-┌────────────────────────────────────┐
-│          ✓ TASK LIST ✓            │
-│  ${active} active · ${completed} completed
-└────────────────────────────────────┘
-        `;
     }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    TodoList.init();
+});

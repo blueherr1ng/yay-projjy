@@ -4,9 +4,9 @@
  	"version": "1.0",
 	"description": "tartan hax projjy for friendship and flowers and evil",
 	"icons": {
-		"16": "images/world-1.png"
 	},
   	"chrome_url_overrides" : {
-    	"newtab": "login.html"
-  	}
+    	"newtab": "index.html"
+  	},
+	"permissions":["storage"]
 }
