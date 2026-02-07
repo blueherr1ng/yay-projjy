@@ -9,7 +9,7 @@ var axiom = [
   "F[+F]F[-F]"
 ]
 var sentence;
-var len = 8;
+var len = 12;
 var angle;
 
 var rules = [
@@ -58,7 +58,7 @@ function generate() {
     }
   }
   sentence = nextSentence;
-  createP(sentence);
+  //createP(sentence);
   turtle();
 }
 
@@ -95,7 +95,7 @@ function turtle() {
 }
 
 function setup() { 
-  createCanvas(400,400);
+  createCanvas(1000,600);
   background(20);
   var randchoice = floor(random(4))
   sentence = axiom[randchoice];
