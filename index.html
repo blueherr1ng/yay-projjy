@@ -3,14 +3,43 @@
   <head>
     <meta charset="utf-8" />
     <title>plantastic</title>
-    <link rel="stylesheet" type="text/css" href="styles/index.css" />
-    <script type="text/javascript" src="scripts/p5.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="scripts/plantastic.js"></script>
-    <script type="text/javascript" src="scripts/sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
     <script type="text/javascript" src="scripts/index.js"></script>
   </head>
   <body>
-    text
+    <div style="text-align: center;">
+      <h1>Plantastic</h1>
+      <h3>Study alone, grow together</h3>
+      <div class="welcome-container">
+        <h3 id="welcome-message">Loading...</h3>
+      </div>
+      <a href="login.html">
+        <button type="button">login</button>
+      </a>
+    
+      <a href="main.html">
+        <button type="button">home</button>
+      </a>
+
+      <div class="main-container">
+    <div id="garden-container"></div>
+
+    <div class="todo-container">
+        <h2>Garden Tasks</h2>
+        <input type="text" id="todo-input" placeholder="Enter new task">
+        <div id="todo-items"></div>
+        <button id="dev-clear-btn">[NUKE GARDEN]</button>
+        </div>
+</div>
+    </div>
+    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="scripts/p5.min.js"></script>
+    <script type="text/javascript" src="scripts/gardata.js"></script>
+    <script type="text/javascript" src="scripts/lsystem.js"></script>
+    <script type="text/javascript" src="scripts/turtle.js"></script>
+
+    <script type="text/javascript" src="scripts/plantlib.js"></script>
+    <script type="text/javascript" src="scripts/sketch.js"></script>
+    <script type="text/javascript" src="scripts/todos.js"></script>
   </body>
 </html>
