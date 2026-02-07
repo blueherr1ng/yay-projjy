@@ -16,17 +16,22 @@ var rules = [
     { 
     a: "F", 
     b: "FF", 
-    weight: 0.2 
+    weight: 0.1 
   },
   { 
     a: "F", 
     b: "F[+F]F", 
-    weight: 0.4 
+    weight: 0.2 
   },
   { 
     a: "F", 
     b: "FF-[-F+FC]+[+F-FC]", 
     weight: 0.4 
+  },
+  { 
+    a: "F", 
+    b: "FF-[-F+F+FC]+[+F-F-FC]", 
+    weight: 0.3 
   }
 ];
 
@@ -37,6 +42,7 @@ var rules = [
 
 
 function generate() {
+  len -= 1;
   var nextSentence = "";
   for (var i = 0; i < sentence.length; i++)
   {
@@ -58,7 +64,7 @@ function generate() {
     }
   }
   sentence = nextSentence;
-  //createP(sentence);
+  createP(sentence);
   turtle();
 }
 
@@ -99,14 +105,10 @@ function setup() {
   background(20);
   var randchoice = floor(random(4))
   sentence = axiom[randchoice];
-  angle = (random(PI/5 * 0.8));
+  angle = (PI/6-random(0.2));
   turtle();
   for(var i = 0; i < 3 ; i ++)
   {
     generate();
   }
 }
-
-// function draw() {
-//   background(220);
-// }
