@@ -16,12 +16,12 @@ var rules = [
     { 
     a: "F", 
     b: "FF", 
-    weight: 0.1 
+    weight: 0.3 
   },
   { 
     a: "F", 
     b: "F[+F]F", 
-    weight: 0.2 
+    weight: 0.1 
   },
   { 
     a: "F", 
@@ -31,7 +31,7 @@ var rules = [
   { 
     a: "F", 
     b: "FF-[-F+F+FC]+[+F-F-FC]", 
-    weight: 0.3 
+    weight: 0.2 
   }
 ];
 
