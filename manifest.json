@@ -7,7 +7,7 @@
 		"16": "images/flower.png"
 	},
   	"chrome_url_overrides" : {
-    	"newtab": "index.html"
+    	"newtab": "dupe.html"
   	},
 	"permissions":["storage"]
 }
