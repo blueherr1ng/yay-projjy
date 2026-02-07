@@ -27,7 +27,7 @@ var plantLibrary = [
     ]
   },
   {
-    name: "abop-c",
+    name: "abop-cl",
     axiom: "F",
     angle: 22.5,
     rules: [
@@ -36,11 +36,11 @@ var plantLibrary = [
   },
   {
     name: "abop-d",
-    axiom: "X",
+    axiom: "C",
     angle: 20,
     rules: [
-        { a: "X", b: "F[+X]F[-X]+X", weight: 1 },
-        { a: "F", b: "FF", weight: 1 },
+        { a: "C", b: "F[+C]F[-C]+C", weight: 1 },
+        { a: "F", b: "F", weight: 1 },
     ]
   },
 ];
