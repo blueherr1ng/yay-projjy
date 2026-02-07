@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Task Manager</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="ascii-container">
+        <!-- ASCII Header -->
+        <div class="ascii-header">
+            <pre class="ascii-art">
+╔════════════════════════════════════════════════════════════════════════════╗
+║                         🌸 GARDEN TASK MANAGER 🌸                         ║
+║                     Complete tasks → Grow your garden!                     ║
+╚════════════════════════════════════════════════════════════════════════════╝
+            </pre>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="ascii-main">
+            <!-- Left Side: Garden -->
+            <div class="ascii-panel garden-panel">
+                <div class="panel-header">
+                    <pre id="garden-header">
+┌────────────────────────────────────┐
+│         🌻 YOUR GARDEN 🌻          │
+│     0 flowers blooming
+└────────────────────────────────────┘
+                    </pre>
+                </div>
+                <div class="garden-canvas" id="garden">
+                    <!-- Ground/Soil -->
+                    <div class="garden-ground">
+                        <pre class="ground-texture">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈
+........................................
+                        </pre>
+                    </div>
+                    
+                    <!-- Empty state -->
+                    <div class="garden-empty" id="garden-empty">
+                        <pre class="empty-message">
+            
+            
+            Your garden is empty...
+            
+            Complete tasks to plant
+            beautiful flowers! 🌱
+            
+            
+            
+                        </pre>
+                    </div>
+                    
+                    <!-- Flowers container -->
+                    <div class="flowers-container" id="flowers-container"></div>
+                    
+                    <!-- Garden border -->
+                    <div class="garden-border">
+                        <pre>═══════════════════════════════════════</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Todo List -->
+            <div class="ascii-panel todo-panel">
+                <div class="panel-header">
+                    <pre id="todo-header">
+┌────────────────────────────────────┐
+│          ✓ TASK LIST ✓            │
+│  0 active · 0 completed
+└────────────────────────────────────┘
+                    </pre>
+                </div>
+                
+                <div class="todo-list-container">
+                    <!-- Add Todo Input -->
+                    <div class="todo-input-section">
+                        <div class="input-wrapper">
+                            <pre class="input-label">> </pre>
+                            <input 
+                                type="text" 
+                                id="todo-input"
+                                class="todo-input"
+                                placeholder="Add a new task..."
+                                maxlength="50"
+                            />
+                        </div>
+                        <button id="add-todo-btn" class="add-button">
+                            <pre>[ADD TASK]</pre>
+                        </button>
+                    </div>
+
+                    <!-- Todo Items -->
+                    <div class="todo-items" id="todo-items">
+                        <div class="empty-todos" id="empty-todos">
+                            <pre class="empty-message">
+            
+            No tasks yet!
+            
+            Add your first task above
+            to start growing your garden 🌱
+            
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Stats Footer -->
+                    <div class="todo-stats" id="todo-stats" style="display: none;">
+                        <pre id="stats-text">
+┌────────────────────────────────────┐
+│ Total: 0   │ Active: 0   │ Done: 0   │
+└────────────────────────────────────┘
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASCII Footer -->
+        <div class="ascii-footer">
+            <pre class="footer-text">
+╔════════════════════════════════════════════════════════════════════════════╗
+║  💡 TIP: Complete tasks to grow beautiful flowers in your garden! 💡       ║
+╚════════════════════════════════════════════════════════════════════════════╝
+            </pre>
+        </div>
+    </div>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/garden.js"></script>
+    <script src="scripts/todos.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/sketch.js"></script>
+</body>
+</html>
